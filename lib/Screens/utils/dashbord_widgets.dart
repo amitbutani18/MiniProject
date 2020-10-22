@@ -64,8 +64,8 @@ BoxDecoration boxDecoration(
   );
 }
 
-AnimationConfiguration customCard(
-    int index, double height, double width, GridItem gridItem) {
+AnimationConfiguration customCard(int index, double height, double width,
+    GridItem gridItem, BuildContext context) {
   return AnimationConfiguration.staggeredGrid(
     columnCount: 3,
     position: index,
@@ -92,6 +92,50 @@ AnimationConfiguration customCard(
                 ),
                 text(
                   gridItem.title,
+                  textColor: d_textColorPrimary.withOpacity(.8),
+                  fontSize: textSizeSmall,
+                  fontFamily: fontMedium,
+                ),
+              ],
+            ),
+          ),
+          onTap: () {
+            Navigator.of(context).pushNamed(gridItem.tag);
+          },
+        ),
+      ),
+    ),
+  );
+}
+
+AnimationConfiguration customCarddoc(
+    int index, double height, double width, GridItemdoc gridItemsdoctors) {
+  return AnimationConfiguration.staggeredGrid(
+    columnCount: 3,
+    position: index,
+    duration: const Duration(milliseconds: 400),
+    child: ScaleAnimation(
+      child: FadeInAnimation(
+        child: GestureDetector(
+          child: Container(
+            decoration: BoxDecoration(
+                color: d_app_background,
+                borderRadius: BorderRadius.circular(15)),
+            alignment: Alignment.center,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  height: height / 20,
+                  width: width / 13,
+                  child: Image.network(gridItemsdoctors.image),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                text(
+                  gridItemsdoctors.title,
                   textColor: d_textColorPrimary.withOpacity(.8),
                   fontSize: textSizeSmall,
                   fontFamily: fontMedium,

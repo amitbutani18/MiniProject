@@ -10,8 +10,9 @@ class Notice {
 }
 
 class GridItem {
-  final String title, image;
-  GridItem({this.title, this.image});
+  final String title, image, tag;
+
+  GridItem({this.title, this.image, this.tag});
 }
 
 final List<Notice> notices = [
@@ -35,14 +36,50 @@ final List<Notice> notices = [
 final List<GridItem> gridItems = [
   GridItem(
       title: 'Diagnostics',
-      image: 'https://i.postimg.cc/vHj30jdK/diagnostic-1.png'),
+      image: 'https://i.postimg.cc/vHj30jdK/diagnostic-1.png',
+      tag: 'diagnostics'),
   GridItem(
-      title: 'Shots', image: 'https://i.postimg.cc/dV2t5byQ/injection.png'),
+      title: 'Shots',
+      image: 'https://i.postimg.cc/dV2t5byQ/injection.png',
+      tag: 'shots'),
   GridItem(
       title: 'Consultation',
-      image: 'https://i.postimg.cc/6Ts4vCDM/consultant.png'),
+      image: 'https://i.postimg.cc/6Ts4vCDM/consultant.png',
+      tag: 'consulation'),
   GridItem(
-      title: 'Ambulance', image: 'https://i.postimg.cc/pLjbCz3D/ambulance.png'),
-  GridItem(title: 'Nurse', image: 'https://i.postimg.cc/0NC4XfnJ/nurse.png'),
-  GridItem(title: 'Lab Work', image: 'https://i.postimg.cc/VstV3mK8/lab.png'),
+      title: 'Ambulance',
+      image: 'https://i.postimg.cc/pLjbCz3D/ambulance.png',
+      tag: 'ambulance'),
+  GridItem(
+      title: 'Nurse',
+      image: 'https://i.postimg.cc/0NC4XfnJ/nurse.png',
+      tag: 'nurse'),
+  GridItem(
+      title: 'Lab Work',
+      image: 'https://i.postimg.cc/VstV3mK8/lab.png',
+      tag: 'labwork'),
+];
+
+class GridItemdoc {
+  final String title, image;
+  GridItemdoc({this.title, this.image});
+}
+
+final List<GridItemdoc> gridItemsdoctors = [
+  GridItemdoc(
+      title: 'Dentiest', image: 'https://i.postimg.cc/bwtHxJ0J/teeth.png'),
+  GridItemdoc(
+      title: 'Cardiologist', image: 'https://i.postimg.cc/qBDVPQXj/heart.png'),
+  GridItemdoc(
+      title: 'Dermatolodist', image: 'https://i.postimg.cc/L8HWh1Tn/skin.png'),
+  GridItemdoc(
+      title: 'Orthopaedic',
+      image: 'https://i.postimg.cc/bNf5PhjV/orthopedics.png'),
+  GridItemdoc(
+      title: 'Gastroenterologist',
+      image: 'https://i.postimg.cc/d1xFj95H/gastroenterologist.png'),
+  GridItemdoc(
+      title: 'Radiologists', image: 'https://i.postimg.cc/bwtHxJ0J/teeth.png'),
+  // GridItemdoc(
+  //     title: 'Orthopaedic', image: 'https://i.postimg.cc/ncZsjFQX/osteoporosis.png'),
 ];
