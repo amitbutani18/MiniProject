@@ -38,7 +38,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
     if (_image == null) {
       print('Plese select photo');
     } else {
-      final FirebaseUser user = await FirebaseAuth.instance.currentUser();
+      final User user = await FirebaseAuth.instance.currentUser;
       final uid = user.uid;
       final phone = user.phoneNumber;
       print(phone);
@@ -52,7 +52,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
       await ref.putFile(_image).onComplete;
       final imageUrl = await ref.getDownloadURL();
 
-      await http.post(url,
+      await http.put(url,
           body: json.encode({
             'mobile': phone,
             'fullName': _fullName,
@@ -74,7 +74,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
   }
 
   Future<Map> getUser() async {
-    final user = await FirebaseAuth.instance.currentUser();
+    final user = await FirebaseAuth.instance.currentUser;
     final uid = user.uid;
     print(uid);
     // final response = await http

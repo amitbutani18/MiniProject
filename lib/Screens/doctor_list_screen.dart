@@ -1,19 +1,44 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:miniProject/Helpers/doctor_list_obj.dart';
+import 'package:miniProject/Helpers/doctor_model.dart';
+import 'package:miniProject/Screens/doctor_details_screen.dart';
 
 import '../Helpers/notice_list.dart';
 import 'utils/constants.dart';
 import 'utils/d_colors.dart';
 import 'utils/dashbord_widgets.dart';
 
-class DoctorScreen extends StatelessWidget {
+class DoctorScreen extends StatefulWidget {
+  @override
+  _DoctorScreenState createState() => _DoctorScreenState();
+}
+
+class _DoctorScreenState extends State<DoctorScreen> {
+  List<DoctorListObj> list = [];
+  bool _isLoad = false;
+  @override
+  void didChangeDependencies() async {
+    super.didChangeDependencies();
+    setState(() {
+      _isLoad = true;
+    });
+    list = await DoctorList.shared.getDoctorList();
+    setState(() {
+      _isLoad = false;
+    });
+    print(list);
+  }
+
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
 
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: d_colorPrimary,
       body: NestedScrollView(
@@ -133,13 +158,154 @@ class DoctorScreen extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                      child: Container(
-                          // color: Colors.red,
-
-                          ))
+                    child: _isLoad
+                        ? Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        : buildList(list, height, width),
+                  )
                 ],
               ),
             )),
+      ),
+    );
+  }
+
+  Widget buildList(
+    List<DoctorListObj> doctorList,
+    double height,
+    double width,
+  ) {
+    return AnimationLimiter(
+      child: ListView.builder(
+          physics: BouncingScrollPhysics(),
+          scrollDirection: Axis.vertical,
+          itemCount: doctorList.length, //2 is for above list
+          itemBuilder: (context, index) {
+            return AnimationConfiguration.staggeredList(
+                position: index,
+                duration: const Duration(milliseconds: 2000),
+                child: SlideAnimation(
+                    verticalOffset: 50.0,
+                    child: FadeInAnimation(
+                        child: buildSingleCountryView(
+                            doctorList[index], height, width))));
+          }),
+    );
+  }
+
+  Widget buildSingleCountryView(
+    DoctorListObj doctorList,
+    double height,
+    double width,
+  ) {
+    // var width = MediaQuery.of(context).size.width;
+    // var height = MediaQuery.of(context).size.height;
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (BuildContext context) => DoctorDetailsScreen(
+                  doctorDetails: doctorList,
+                )));
+      },
+      child: Container(
+        margin: EdgeInsets.only(left: 16, right: 16, bottom: 16),
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              child: Stack(
+                alignment: Alignment.center,
+                children: <Widget>[
+                  Container(
+                    width: width,
+                    height: 80,
+                    padding: EdgeInsets.only(left: 80, right: 26),
+                    margin:
+                        EdgeInsets.only(right: width / 28, left: width / 25),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              doctorList.personalDetails.name,
+                              style: TextStyle(
+                                  fontFamily: fontBold,
+                                  fontSize: textSizeLargeMedium),
+                            ),
+                            LimitedBox(
+                              maxWidth: width / 3,
+                              maxHeight: 20,
+                              child: ListView.builder(
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, i) => Text(doctorList
+                                          .profesionalDetails.qulifications[i] +
+                                      ', '),
+                                  itemCount: doctorList
+                                      .profesionalDetails.qulifications.length),
+                            ),
+                          ],
+                        ),
+                        Text(
+                          doctorList.profesionalDetails.regNumber.toString(),
+                        )
+                      ],
+                    ),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      border: Border.all(color: Colors.white),
+                      borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(10),
+                          bottomLeft: Radius.circular(10)),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Container(
+                      width: 80,
+                      height: 80,
+                      margin: EdgeInsets.only(left: 18),
+                      padding: EdgeInsets.all(width / 25),
+                      decoration: BoxDecoration(shape: BoxShape.circle),
+                      child: ClipOval(
+                        child: CachedNetworkImage(
+                          fit: BoxFit.cover,
+                          placeholder: (context, url) => Container(
+                            color: Colors.grey[200],
+                          ),
+                          errorWidget: (context, url, error) => Container(
+                            color: Colors.grey.withOpacity(0.2),
+                            child: Center(
+                              child: Icon(
+                                Icons.broken_image,
+                                size: 50.0,
+                                color: Colors.grey.withOpacity(0.5),
+                              ),
+                            ),
+                          ),
+                          imageUrl: doctorList.personalDetails.imageUrl,
+                        ),
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Container(
+                      width: 30,
+                      height: 30,
+                      child:
+                          Icon(Icons.keyboard_arrow_right, color: Colors.white),
+                      decoration: BoxDecoration(
+                          color: Colors.indigo, shape: BoxShape.circle),
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

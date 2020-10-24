@@ -35,7 +35,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
       print('Amit');
       print(_nameController.text);
       print(_emailController.text);
-      final FirebaseUser user = await FirebaseAuth.instance.currentUser();
+      final User user = await FirebaseAuth.instance.currentUser;
       final uid = user.uid;
       final phone = user.phoneNumber;
       // print(phone);
@@ -54,7 +54,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (BuildContext context) => DashBoard()));
     } else {
-      final FirebaseUser user = await FirebaseAuth.instance.currentUser();
+      final User user = await FirebaseAuth.instance.currentUser;
       final uid = user.uid;
       final phone = user.phoneNumber;
       final url = 'https://miniproject-dc6b4.firebaseio.com/$uid/profile.json';
@@ -88,7 +88,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
   }
 
   Future<Map> getUser() async {
-    final user = await FirebaseAuth.instance.currentUser();
+    final user = await FirebaseAuth.instance.currentUser;
     final uid = user.uid;
     print(uid);
   }
@@ -115,7 +115,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
     super.didChangeDependencies();
     if (_isInit) {
       print("HEllo");
-      var firebaseUser = await _auth.currentUser();
+      var firebaseUser = await _auth.currentUser;
       var uid = firebaseUser.uid;
       final url = 'https://miniproject-dc6b4.firebaseio.com/$uid/profile.json';
       final response = await http.get(url);

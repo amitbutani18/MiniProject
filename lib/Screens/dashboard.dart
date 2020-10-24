@@ -8,6 +8,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:miniProject/Covid_19/main.dart';
 import 'package:miniProject/Helpers/notice_list.dart';
 import 'package:miniProject/Screens/my_profile_sceeen.dart';
 import 'package:miniProject/Screens/personal_details_screen.dart';
@@ -34,7 +35,7 @@ class _DashBoardState extends State<DashBoard> {
   @override
   void didChangeDependencies() async {
     super.didChangeDependencies();
-    var firebaseUser = await _auth.currentUser();
+    var firebaseUser = await _auth.currentUser;
     var uid = firebaseUser.uid;
     final url = 'https://miniproject-dc6b4.firebaseio.com/$uid/profile.json';
     final response = await http.get(url);
@@ -117,10 +118,9 @@ class _DashBoardState extends State<DashBoard> {
                         15.height,
                         GestureDetector(
                           onTap: () {
-                            Navigator.of(context).pushReplacement(
-                                MaterialPageRoute(
-                                    builder: (BuildContext context) =>
-                                        MyProfileScreen()));
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (BuildContext context) =>
+                                    MyProfileScreen()));
                           },
                           child: itemList(
                               Icon(Icons.person_pin, color: Colors.black),
@@ -128,8 +128,15 @@ class _DashBoardState extends State<DashBoard> {
                         ),
                         Divider(),
                         15.height,
-                        itemList(Icon(Icons.message, color: Colors.black),
-                            "Messages"),
+                        GestureDetector(
+                          onTap: () => Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      SplashPage())),
+                          child: itemList(
+                              Icon(Icons.message, color: Colors.black),
+                              "Covid 19"),
+                        ),
                         Divider(),
                         15.height,
                         itemList(Icon(Icons.notifications, color: Colors.black),

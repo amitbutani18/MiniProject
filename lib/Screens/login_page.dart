@@ -67,10 +67,10 @@ class _LoginPageState extends State<LoginPage> {
                               Container(
                                   margin: const EdgeInsets.symmetric(
                                       horizontal: 10),
-                                  child: Text('TheGorgeousOtp',
+                                  child: Text('DocNet',
                                       style: TextStyle(
                                           color: MyColors.primaryColor,
-                                          fontSize: 30,
+                                          fontSize: 40,
                                           fontWeight: FontWeight.w800)))
                             ],
                           ),

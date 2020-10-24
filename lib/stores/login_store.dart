@@ -8,6 +8,7 @@ import 'package:mobx/mobx.dart';
 import 'package:miniProject/Screens/login_page.dart';
 import 'package:miniProject/Screens/otp_page.dart';
 import 'package:http/http.dart' as http;
+import 'package:nb_utils/nb_utils.dart';
 
 part 'login_store.g.dart';
 
@@ -28,11 +29,11 @@ abstract class LoginStoreBase with Store {
   GlobalKey<ScaffoldState> otpScaffoldKey = GlobalKey<ScaffoldState>();
 
   @observable
-  FirebaseUser firebaseUser;
+  User firebaseUser;
 
   @action
   Future<bool> isAlreadyAuthenticated() async {
-    firebaseUser = await _auth.currentUser();
+    firebaseUser = await _auth.currentUser;
     if (firebaseUser != null) {
       var uid = firebaseUser.uid;
       final url = 'https://miniproject-dc6b4.firebaseio.com/$uid/profile.json';
@@ -54,7 +55,7 @@ abstract class LoginStoreBase with Store {
         phoneNumber: phoneNumber,
         timeout: const Duration(seconds: 60),
         verificationCompleted: (AuthCredential auth) async {
-          await _auth.signInWithCredential(auth).then((AuthResult value) {
+          await _auth.signInWithCredential(auth).then((value) {
             if (value != null && value.user != null) {
               print('Authentication successful');
               onAuthenticationSuccessful(context, value);
@@ -79,7 +80,7 @@ abstract class LoginStoreBase with Store {
             ));
           });
         },
-        verificationFailed: (AuthException authException) {
+        verificationFailed: (authException) {
           print('Error message: ' + authException.message);
           loginScaffoldKey.currentState.showSnackBar(SnackBar(
             behavior: SnackBarBehavior.floating,
@@ -118,7 +119,7 @@ abstract class LoginStoreBase with Store {
           style: TextStyle(color: Colors.white),
         ),
       ));
-    }).then((AuthResult authResult) {
+    }).then((authResult) {
       if (authResult != null && authResult.user != null) {
         print('Authentication successful');
         onAuthenticationSuccessful(context, authResult);
@@ -126,8 +127,7 @@ abstract class LoginStoreBase with Store {
     });
   }
 
-  Future<void> onAuthenticationSuccessful(
-      BuildContext context, AuthResult result) async {
+  Future<void> onAuthenticationSuccessful(BuildContext context, result) async {
     isLoginLoading = true;
     isOtpLoading = true;
 
@@ -139,6 +139,9 @@ abstract class LoginStoreBase with Store {
     final url = 'https://miniproject-dc6b4.firebaseio.com/$uid/profile.json';
     final response = await http.get(url);
     print(response.statusCode);
+
+    final pre = await SharedPreferences.getInstance();
+    pre.setString('uid', uid);
 
     Map map = json.decode(response.body);
     if (map == null) {

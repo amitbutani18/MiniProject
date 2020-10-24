@@ -80,14 +80,14 @@ mixin _$LoginStore on LoginStoreBase, Store {
   final _$firebaseUserAtom = Atom(name: 'LoginStoreBase.firebaseUser');
 
   @override
-  FirebaseUser get firebaseUser {
+  User get firebaseUser {
     _$firebaseUserAtom.context.enforceReadPolicy(_$firebaseUserAtom);
     _$firebaseUserAtom.reportObserved();
     return super.firebaseUser;
   }
 
   @override
-  set firebaseUser(FirebaseUser value) {
+  set firebaseUser(User value) {
     _$firebaseUserAtom.context.conditionallyRunInAction(() {
       super.firebaseUser = value;
       _$firebaseUserAtom.reportChanged();
