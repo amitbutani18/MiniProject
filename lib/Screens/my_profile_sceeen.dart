@@ -38,8 +38,6 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
       final User user = await FirebaseAuth.instance.currentUser;
       final uid = user.uid;
       final phone = user.phoneNumber;
-      // print(phone);
-      // print(uid);
       final url = 'https://miniproject-dc6b4.firebaseio.com/$uid/profile.json';
       await http.put(url,
           body: json.encode({
@@ -50,7 +48,6 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
             'data': true,
             'imageUrl': _initImage,
           }));
-      // Navigator.of(context).pushReplacementNamed('/homepage');
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (BuildContext context) => DashBoard()));
     } else {
@@ -75,13 +72,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
             'data': true,
             'imageUrl': imageUrl,
           }));
-      // Navigator.of(context).pushReplacementNamed('/homepage');
-      // SharedPreferences preferences = await SharedPreferences.getInstance();
-      // preferences.setBool('perDetAvl', true);
-      // print(preferences.getBool('perDetAvl'));
-      // print(_fullName);
-      // print(_email);
-      // print(_gender);
+
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (BuildContext context) => DashBoard()));
     }
@@ -114,7 +105,10 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
   void didChangeDependencies() async {
     super.didChangeDependencies();
     if (_isInit) {
-      print("HEllo");
+      setState(() {
+        _loading = true;
+      });
+      
       var firebaseUser = await _auth.currentUser;
       var uid = firebaseUser.uid;
       final url = 'https://miniproject-dc6b4.firebaseio.com/$uid/profile.json';
@@ -127,6 +121,7 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
         _initImage = map['imageUrl'];
         _emailController = TextEditingController(text: map['email']);
         _gender = map['gender'];
+        _loading = false;
       });
       _isInit = false;
     }
