@@ -46,6 +46,15 @@ dependencies:
   rxdart: ^0.23.1
   bubble_bottom_bar: ^1.2.0
   url_launcher: ^5.4.2
+  date_time_picker: "^1.1.0"
+  agora_rtc_engine: ^1.0.13
+  agora_rtm: ^0.9.11
+  razorpay_flutter: ^1.2.2
+  rating_dialog: ^1.0.0
+  # nb_utils: ^3.2.11+8
+
+
+
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -56,7 +65,6 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^1.8.1
   mobx_codegen: ^1.0.3
-
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 
@@ -71,6 +79,9 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/img/
+    - assets/img/doc_profile.png
+    - assets/img/video_call.png
+
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

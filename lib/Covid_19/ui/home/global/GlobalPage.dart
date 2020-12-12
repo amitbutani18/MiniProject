@@ -71,13 +71,15 @@ class _GlobalPageState extends State<GlobalPage> {
               var country = allCountryData[index - 2];
               var indexUpdate = index - 2;
               return AnimationConfiguration.staggeredList(
-                  position: index - 2,
-                  duration: const Duration(milliseconds: 2000),
-                  child: SlideAnimation(
-                      verticalOffset: 50.0,
-                      child: FadeInAnimation(
-                          child:
-                              buildSingleCountryView(country, indexUpdate))));
+                position: index - 2,
+                duration: const Duration(milliseconds: 2000),
+                child: SlideAnimation(
+                  verticalOffset: 50.0,
+                  child: FadeInAnimation(
+                    child: buildSingleCountryView(country, indexUpdate),
+                  ),
+                ),
+              );
             }
           }),
     );

@@ -1,6 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:miniProject/Helpers/upload_sedual.dart';
+import 'package:miniProject/Screens/doc_personal_screen.dart';
 import 'package:miniProject/Screens/doctor_list_screen.dart';
+import 'package:miniProject/Screens/razorpay_screen.dart';
+import 'package:miniProject/Screens/scheduleing_screen.dart';
 import 'package:miniProject/Screens/splash_page.dart';
 import 'package:miniProject/Screens/utils/d_colors.dart';
 import 'package:miniProject/providers/helper_provider.dart';
@@ -21,6 +25,7 @@ class MyApp extends StatelessWidget {
       builder: (context, snap) => MultiProvider(
         providers: [
           ChangeNotifierProvider.value(value: HelperProvider()),
+          ChangeNotifierProvider.value(value: UploadSedual()),
           Provider<LoginStore>(
             create: (_) => LoginStore(),
           )
@@ -34,6 +39,7 @@ class MyApp extends StatelessWidget {
             ),
             routes: {
               'diagnostics': (context) => DoctorScreen(),
+              'appointment': (context) => DocPersonal(),
             },
             home: SplashPage()),
       ),

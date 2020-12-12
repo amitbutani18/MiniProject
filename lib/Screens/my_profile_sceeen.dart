@@ -207,9 +207,10 @@ class _MyProfileScreenState extends State<MyProfileScreen> {
                                 border:
                                     Border.all(width: 2, color: Colors.white),
                                 image: DecorationImage(
-                                    image: _image == null
-                                        ? NetworkImage(_initImage)
-                                        : FileImage(_image)),
+                                  image: _image == null
+                                      ? NetworkImage(_initImage)
+                                      : FileImage(_image),
+                                ),
                               ),
                             ),
                           ),

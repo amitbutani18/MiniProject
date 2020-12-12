@@ -68,7 +68,7 @@ class _DoctorScreenState extends State<DoctorScreen> {
               ),
               flexibleSpace: FlexibleSpaceBar(
                 centerTitle: true,
-                title: Text("Top Doctors",
+                title: Text("All Doctors",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 22.0,
@@ -138,14 +138,14 @@ class _DoctorScreenState extends State<DoctorScreen> {
                                   Container(
                                     height: height / 20,
                                     width: width / 12,
-                                    child:
-                                        Image.network(gridItems[index].image),
+                                    child: Image.network(
+                                        gridItemsdoctors[index].image),
                                   ),
                                   SizedBox(
                                     height: 5,
                                   ),
                                   text(
-                                    gridItems[index].title,
+                                    gridItemsdoctors[index].title,
                                     textColor:
                                         d_textColorPrimary.withOpacity(.8),
                                     fontSize: textSizeSmall,

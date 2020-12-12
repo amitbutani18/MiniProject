@@ -34,9 +34,13 @@ final List<Notice> notices = [
 ];
 
 final List<GridItem> gridItems = [
+  // GridItem(
+  //     title: 'Diagnostics',
+  //     image: 'https://i.postimg.cc/vHj30jdK/diagnostic-1.png',
+  //     tag: 'diagnostics'),
   GridItem(
-      title: 'Diagnostics',
-      image: 'https://i.postimg.cc/vHj30jdK/diagnostic-1.png',
+      title: 'All Doctors',
+      image: 'https://i.postimg.cc/sgWCDW6y/doctor-1.png',
       tag: 'diagnostics'),
   GridItem(
       title: 'Shots',
@@ -82,4 +86,22 @@ final List<GridItemdoc> gridItemsdoctors = [
       title: 'Radiologists', image: 'https://i.postimg.cc/bwtHxJ0J/teeth.png'),
   // GridItemdoc(
   //     title: 'Orthopaedic', image: 'https://i.postimg.cc/ncZsjFQX/osteoporosis.png'),
+];
+
+class GridItemlist {
+  final String title, image,tag;
+
+  GridItemlist({this.tag,this.title, this.image});
+}
+
+final List<GridItemlist> gridItemslist = [
+  GridItemlist(
+      title: ' APPOINTMENT', image: 'https://i.postimg.cc/cCsgmZzk/appointment.png'),
+  GridItemlist(
+      title: 'GIVE RATING', image: 'https://i.postimg.cc/KvCccxNX/price-tags.png'),
+  GridItemlist(
+      title: 'PERSONAL', image: 'https://i.postimg.cc/x10Q18z4/personal-information.png',tag: 'appointment'),
+  GridItemlist(
+      title: 'PROFESIONAL',
+      image: 'https://i.postimg.cc/g0Zg9q0F/identification.png'),
 ];
